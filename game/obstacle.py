@@ -8,8 +8,10 @@ class Obstacle:
         self.y = ground_y - height
         self.speed = speed
         self.scored = False
+        self.prev_x = x
 
     def move(self):
+        self.prev_x = self.x
         self.x -= self.speed
 
     def off_screen(self):
@@ -17,3 +19,9 @@ class Obstacle:
 
     def rect(self):
         return pygame.Rect(self.x, self.y, self.width, self.height)
+
+    def swept_rect(self):
+        """Rect covering everywhere the obstacle occupied during its last move."""
+        left = min(self.x, self.prev_x)
+        right = max(self.x, self.prev_x) + self.width
+        return pygame.Rect(left, self.y, right - left, self.height)

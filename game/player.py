@@ -16,6 +16,8 @@ class Player:
         if self.on_ground:
             self.vy = self.jump_strength
             self.on_ground = False
+            return True
+        return False
 
     def update(self):
         self.vy += self.gravity
